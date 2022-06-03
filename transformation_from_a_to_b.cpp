@@ -1,3 +1,4 @@
+// https://codeforces.com/contest/727/problem/A
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -25,21 +26,23 @@ template <class T>
 T modmul(T a,T b,ll m){ return ((a%m)*(b%m))%m; }
 vector<int> inputArray(int n){vector<int> arr(n);int i=0; FOR(i,n) cin>>arr[i];return arr;}
 
-
-void displayVector(vector<int> &v){
+template <typename T>
+void displayVector(vector<T> &v){
 	for(auto x:v){
 		cout<<x<<" ";  
 	}cout<<endl;
 }
 
-void displayVector(vector<int> &v,int n){
+template <typename T>
+void displayVector(vector<T> &v,int n){
 	n = min(n,v.size());
 	for(int i = 0;i<n;i++){
 		cout<<v[i]<<" ";  
 	}cout<<endl;
 }
 
-void displayVector(vector<int> &v,int i,int n){
+template <typename T>
+void displayVector(vector<T> &v,int i,int n){
 	n = min(n,v.size());
 	i = max(0,i);
 	for(;i<n;i++){
@@ -47,7 +50,8 @@ void displayVector(vector<int> &v,int i,int n){
 	}cout<<endl;
 }
 
-void displayVector(vector<int> &v,int i,int n, bool rev){
+template <typename T>
+void displayVector(vector<T> &v,int i,int n, bool rev){
 	n = min(n,v.size());
 	i = max(0,i);
 	if(!rev){
@@ -62,30 +66,31 @@ void displayVector(vector<int> &v,int i,int n, bool rev){
 	}
 }
 
+void func(){
+	int a,b;cin>>a>>b;
+	vector<int> ans;
+	
+	while(b>a){
+		ans.push_back(b);
+		if(b%10==1){
+			b/=10;
+		}else if(b%2==0){
+			b/=2;
+		}else{
+			break;
+		}
+	}
+	ans.push_back(b);
+	if(b==a){
+		cout<<"YES\n";
+		cout<<ans.size()<<endl;
+		displayVector(ans,0,ans.size(),true);
+	}else{
+		cout<<"NO\n";
+	}
+}
 
 int main(){
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-	
-	int n,k;cin>>n>>k;
-	auto arr = inputArray(n); // take input of array
-	vector<int> counter(k,0); // store the counting of common remainder
-	int i=0;
-	displayVector(arr);
-	FOR(i,n){
-		arr[i]=arr[i]%k; // convert into mod value
-		counter[arr[i]]++;
-	}
-	displayVector(arr);
-	int count = 0;
-	int j = floor(k*1.0/2);i=1;
-	if(counter[0]>=2){count+=(counter[0]*(counter[0]-1)/2);}
-	if(k&2){count+=(counter[k/2]*(counter[k/2]-1)/2);j--;}
-	FORL(i,i,j){
-		int oth = k-i-1; // opposite index;
-		count+=counter[i]*counter[oth];
-	}
-	displayVector(counter);
-	cout<<count<<endl;
+	func();
 	return 0;
 }

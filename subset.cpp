@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/subsets/
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -25,39 +26,38 @@ template <class T>
 T modmul(T a,T b,ll m){ return ((a%m)*(b%m))%m; }
 vector<int> inputArray(int n){vector<int> arr(n);int i=0; FOR(i,n) cin>>arr[i];return arr;}
 
-//pascal triangle for finding combination value upto 10005
-vector<vector<ll> > pascal_mat(70,vector<ll>(70));
-void pascal_triangle(){
-	int n = pascal_mat.size();
-	for(int i=0;i<n;i++)
-		for(int j=0;j<n;j++)
-			pascal_mat[i][j] = 0;
-	for(int i=0;i<n;i++){
-		pascal_mat[i][0]=pascal_mat[i][i]=1;
-	}
-	for(int i=2;i<n;i++){
-		for(int j=1;j<=i;j++){
-			pascal_mat[i][j]=pascal_mat[i-1][j-1]+pascal_mat[i-1][j];
-		}
+// All substet pass function to last args
+template <typename T>
+void subsets(vector<T> &v,vector<T> &op,int i,int k,void (*func)(vector<T>&,int)){
+	int n = v.size();
+	if(i>=n){
+		func(op,k);
+	}else{
+		subsets(v,op,i+1,k,func);
+		op[k] = v[i];
+		subsets(v,op,i+1,k+1,func);
 	}
 }
 
-int main(){
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-	pascal_triangle();
-	int T;
-	cin>>T;
-	while(T--){
-		int n,m,x;cin>>n>>m>>x;
-		ll all = pascal_mat[n+m][x];
-		ll rm = 0;
-		for(int i=0;i<4;i++){
-			rm+=pascal_mat[n][i]*pascal_mat[m][5-i];
-		}
-		rm+=pascal_mat[n][5]*pascal_mat[m][0];
-		all -= rm;
-		cout<<all<<endl;
+vector<vector<int>> result;
+void push(vector<int>&op,int k){
+	vector<int> ans;
+	for(int i=0;i<k;i++){
+		ans.push_back(op[i]);
 	}
+	result.push_back(ans);
+}
+
+vector<vector<int>> subsets(vector<int>& nums) {
+	      
+}
+
+
+
+int main(){
+	
+	vector<int> v = {1,2,3};
+
+
 	return 0;
 }

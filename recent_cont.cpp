@@ -1,3 +1,6 @@
+// Not completed
+
+// https://www.codechef.com/START39C/problems/RECENTCONT
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -25,39 +28,25 @@ template <class T>
 T modmul(T a,T b,ll m){ return ((a%m)*(b%m))%m; }
 vector<int> inputArray(int n){vector<int> arr(n);int i=0; FOR(i,n) cin>>arr[i];return arr;}
 
-//pascal triangle for finding combination value upto 10005
-vector<vector<ll> > pascal_mat(70,vector<ll>(70));
-void pascal_triangle(){
-	int n = pascal_mat.size();
-	for(int i=0;i<n;i++)
-		for(int j=0;j<n;j++)
-			pascal_mat[i][j] = 0;
+void fun(){
+	int n;cin>>n;
+	int a=0,i=0;
+	string s;
+	getline(cin,s);
+	cout<<s<<endl;
 	for(int i=0;i<n;i++){
-		pascal_mat[i][0]=pascal_mat[i][i]=1;
+		if(s[i]=='S') a++;
 	}
-	for(int i=2;i<n;i++){
-		for(int j=1;j<=i;j++){
-			pascal_mat[i][j]=pascal_mat[i-1][j-1]+pascal_mat[i-1][j];
-		}
-	}
+
+	cout<<a<<" "<<(n-a)<<endl;
 }
 
+
 int main(){
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-	pascal_triangle();
 	int T;
 	cin>>T;
 	while(T--){
-		int n,m,x;cin>>n>>m>>x;
-		ll all = pascal_mat[n+m][x];
-		ll rm = 0;
-		for(int i=0;i<4;i++){
-			rm+=pascal_mat[n][i]*pascal_mat[m][5-i];
-		}
-		rm+=pascal_mat[n][5]*pascal_mat[m][0];
-		all -= rm;
-		cout<<all<<endl;
+		fun();
 	}
 	return 0;
 }

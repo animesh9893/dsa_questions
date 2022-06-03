@@ -1,3 +1,5 @@
+// https://practice.geeksforgeeks.org/problems/help-the-old-man3848/1
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -25,39 +27,23 @@ template <class T>
 T modmul(T a,T b,ll m){ return ((a%m)*(b%m))%m; }
 vector<int> inputArray(int n){vector<int> arr(n);int i=0; FOR(i,n) cin>>arr[i];return arr;}
 
-//pascal triangle for finding combination value upto 10005
-vector<vector<ll> > pascal_mat(70,vector<ll>(70));
-void pascal_triangle(){
-	int n = pascal_mat.size();
-	for(int i=0;i<n;i++)
-		for(int j=0;j<n;j++)
-			pascal_mat[i][j] = 0;
-	for(int i=0;i<n;i++){
-		pascal_mat[i][0]=pascal_mat[i][i]=1;
+void TOH(int src,int dst,int hlp,vector<pair<int,int> > &ans,int n){
+	if(n==1){
+		ans.push_back({src,dst});
+		return;
 	}
-	for(int i=2;i<n;i++){
-		for(int j=1;j<=i;j++){
-			pascal_mat[i][j]=pascal_mat[i-1][j-1]+pascal_mat[i-1][j];
-		}
-	}
+	TOH(src,hlp,dst,ans,n);
+	ans.push_back({src,dst});
+	TOH(hlp,dst,src,ans,n);
+	return;
+}
+
+
+vector<int> shiftPile(int N, int n){
+        // code here
 }
 
 int main(){
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-	pascal_triangle();
-	int T;
-	cin>>T;
-	while(T--){
-		int n,m,x;cin>>n>>m>>x;
-		ll all = pascal_mat[n+m][x];
-		ll rm = 0;
-		for(int i=0;i<4;i++){
-			rm+=pascal_mat[n][i]*pascal_mat[m][5-i];
-		}
-		rm+=pascal_mat[n][5]*pascal_mat[m][0];
-		all -= rm;
-		cout<<all<<endl;
-	}
+
 	return 0;
 }

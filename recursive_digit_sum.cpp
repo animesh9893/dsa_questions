@@ -1,3 +1,4 @@
+// https://www.hackerrank.com/challenges/recursive-digit-sum/problem
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -25,39 +26,42 @@ template <class T>
 T modmul(T a,T b,ll m){ return ((a%m)*(b%m))%m; }
 vector<int> inputArray(int n){vector<int> arr(n);int i=0; FOR(i,n) cin>>arr[i];return arr;}
 
-//pascal triangle for finding combination value upto 10005
-vector<vector<ll> > pascal_mat(70,vector<ll>(70));
-void pascal_triangle(){
-	int n = pascal_mat.size();
-	for(int i=0;i<n;i++)
-		for(int j=0;j<n;j++)
-			pascal_mat[i][j] = 0;
-	for(int i=0;i<n;i++){
-		pascal_mat[i][0]=pascal_mat[i][i]=1;
+
+string digitSum(string s){
+	int sum = 0;
+	for(int i=0;i<s.length();i++){
+		int num = s[i]-'0';
+		sum+=num;
 	}
-	for(int i=2;i<n;i++){
-		for(int j=1;j<=i;j++){
-			pascal_mat[i][j]=pascal_mat[i-1][j-1]+pascal_mat[i-1][j];
-		}
-	}
+	string ans = to_string(sum);
+	return ans;
 }
 
-int main(){
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-	pascal_triangle();
-	int T;
-	cin>>T;
-	while(T--){
-		int n,m,x;cin>>n>>m>>x;
-		ll all = pascal_mat[n+m][x];
-		ll rm = 0;
-		for(int i=0;i<4;i++){
-			rm+=pascal_mat[n][i]*pascal_mat[m][5-i];
-		}
-		rm+=pascal_mat[n][5]*pascal_mat[m][0];
-		all -= rm;
-		cout<<all<<endl;
+string digitSum(string s,int k){
+	int sum = 0;
+	for(int i=0;i<s.length();i++){
+		int num = s[i]-'0';
+		sum+=num;
 	}
+	sum*=k;
+	string ans = to_string(sum);
+	return ans;
+}
+
+int func(string n){
+	// cout<<n<<endl;
+	if(n.length()==0) return 0;
+	else if(n.length()==1) return n[0]-'0';
+
+	n = digitSum(n);
+	return func(n);
+}
+
+
+int main(){
+	string s;int k;cin>>s>>k;
+	s = digitSum(s,k);
+	cout<<func(s)<<endl;
+	
 	return 0;
 }
