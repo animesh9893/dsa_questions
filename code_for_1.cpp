@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/powx-n/
+// https://codeforces.com/problemset/problem/768/B?f0a28=1
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -26,31 +26,45 @@ template <class T>
 T modmul(T a,T b,ll m){ return ((a%m)*(b%m))%m; }
 vector<int> inputArray(int n){vector<int> arr(n);int i=0; FOR(i,n) cin>>arr[i];return arr;}
 
-double fun(double n,int pow){
-	if(pow==0) return 1.0;
-	double part = fun(n,pow/2);
-	part *=part;
-	if(pow&1==1){
-		part*=n;
+bool checker(vector<int> arr){
+	for(auto x:arr){
+		if(x==0 or x==1) continue;
+		else return false;
 	}
-	return part;
+	return true;
 }
 
-double pow_n(double x,int n){
-	double ans = fun(x,abs(n));
-	if(n>=0) return ans;
-	return 1/ans;	
-}
+vector<long long int> ans;
 
+void fun(long long int n){
+	if(n==1 or n==0){
+		// cout<<n<<" ";
+		ans.push_back(n);
+		return ;
+	}
+	fun(n/2);
+	fun(n%2);
+	fun(n/2);
+	return ;
+}
 
 int main(){
+	// long long int n,l,r;cin>>n>>l>>r;
+	// vector<int> arr;arr.push_back(n);
+	// fun(n);
+	// int count =0;
+	// for(int i=l-1;i<r;i++)
+		// if(ans[i]==1) count++;
+	// cout<<count<<endl;
 
-	double n;
-	int pow;
 
-	cin>>n>>pow;
-
-	cout<<fun(n,pow)<<endl;
+	for(int i=1;i<=25;i++){
+		fun(i);
+		for(int i=0;i<ceil(ans.size()*1.0/2);i++){
+			cout<<ans[i]<<" ";
+		}cout<<endl;
+		ans.clear();
+	}
 
 	return 0;
 }

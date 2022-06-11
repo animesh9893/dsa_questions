@@ -1,4 +1,3 @@
-// https://leetcode.com/problems/powx-n/
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -26,31 +25,37 @@ template <class T>
 T modmul(T a,T b,ll m){ return ((a%m)*(b%m))%m; }
 vector<int> inputArray(int n){vector<int> arr(n);int i=0; FOR(i,n) cin>>arr[i];return arr;}
 
-double fun(double n,int pow){
-	if(pow==0) return 1.0;
-	double part = fun(n,pow/2);
-	part *=part;
-	if(pow&1==1){
-		part*=n;
+bool fun(){
+	int n;cin>>n;
+	
+	auto arr = inputArray(n);
+	if(n==1) return true;
+	vector<int> psum(n,0);
+	vector<int> ssum(n,0);
+	int sum = 0;
+	for(int i=0;i<n;i++){
+		psum[i] = sum;
+		sum+=arr[i];
 	}
-	return part;
-}
+	sum = 0;
+	for(int j=n-1;j>=0;j--){
+		ssum[j] = sum;
+		sum+=arr[j];
+	}
 
-double pow_n(double x,int n){
-	double ans = fun(x,abs(n));
-	if(n>=0) return ans;
-	return 1/ans;	
+	for(int i=0;i<n;i++){
+		if(psum[i]==ssum[i]) return true;
+	}
+	return false;
 }
 
 
 int main(){
-
-	double n;
-	int pow;
-
-	cin>>n>>pow;
-
-	cout<<fun(n,pow)<<endl;
-
-	return 0;
+	int t;cin>>t;
+	while(t--){
+		if(fun()){
+			cout<<"YES"<<endl;
+		}else
+			cout<<"NO\n";
+	}	return 0;
 }

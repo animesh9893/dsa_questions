@@ -1,4 +1,3 @@
-// https://leetcode.com/problems/powx-n/
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -26,31 +25,28 @@ template <class T>
 T modmul(T a,T b,ll m){ return ((a%m)*(b%m))%m; }
 vector<int> inputArray(int n){vector<int> arr(n);int i=0; FOR(i,n) cin>>arr[i];return arr;}
 
-double fun(double n,int pow){
-	if(pow==0) return 1.0;
-	double part = fun(n,pow/2);
-	part *=part;
-	if(pow&1==1){
-		part*=n;
-	}
-	return part;
-}
 
-double pow_n(double x,int n){
-	double ans = fun(x,abs(n));
-	if(n>=0) return ans;
-	return 1/ans;	
-}
+int last_index(vector<int> arr,const int target){
+	if(arr.size()==0) return -1;
+	if(arr[arr.size()-1]==target) return 0;
+	arr.pop_back();
+	int index = last_index(arr,target);
+	if(index==-1) return -1;
+	return 1+index;
+}	
 
+int last_index1(vector<int> arr,int tar){
+	if(arr.size()==0) return -1;
+	int last_item = arr[arr.size()-1];
+	arr.pop_back();
+	last_index1(arr,tar);
+}
 
 int main(){
-
-	double n;
-	int pow;
-
-	cin>>n>>pow;
-
-	cout<<fun(n,pow)<<endl;
-
+	int n;cin>>n;
+	auto arr  = inputArray(n);
+	int tar;cin>>tar;
+	cout<<last_index(arr,tar);
+	cout<<endl;
 	return 0;
 }

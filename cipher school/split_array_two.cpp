@@ -1,4 +1,3 @@
-// https://leetcode.com/problems/powx-n/
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -26,31 +25,23 @@ template <class T>
 T modmul(T a,T b,ll m){ return ((a%m)*(b%m))%m; }
 vector<int> inputArray(int n){vector<int> arr(n);int i=0; FOR(i,n) cin>>arr[i];return arr;}
 
-double fun(double n,int pow){
-	if(pow==0) return 1.0;
-	double part = fun(n,pow/2);
-	part *=part;
-	if(pow&1==1){
-		part*=n;
+bool splitArray(vector<int> &arr,int index,int left_sum,int right_sum){
+	if(index==arr.size()){
+		if(left_sum==right_sum) return true;
+		return false;
 	}
-	return part;
+	int item = arr[index];
+	if(item%5==0){
+		return splitArray(arr,index+1,left_sum+item,right_sum);
+	}else if(item%3==0 and item%5!==0){
+		return splitArray(arr,index+1,left_sum,right_sum+item);
+	}
+	return splitArray(arr,index+1,left_sum+item,right_sum) or splitArray(arr,index+1,left_sum,right_sum+item);
 }
-
-double pow_n(double x,int n){
-	double ans = fun(x,abs(n));
-	if(n>=0) return ans;
-	return 1/ans;	
-}
-
 
 int main(){
-
-	double n;
-	int pow;
-
-	cin>>n>>pow;
-
-	cout<<fun(n,pow)<<endl;
-
+	int n;cin>>n;
+	auto arr = inputArray(n);
+	cout<<splitArray(arr,0,0,0)<<endl;
 	return 0;
 }

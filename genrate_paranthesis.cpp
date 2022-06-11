@@ -1,4 +1,5 @@
-// https://leetcode.com/problems/powx-n/
+// https://leetcode.com/problems/generate-parentheses/
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -26,31 +27,40 @@ template <class T>
 T modmul(T a,T b,ll m){ return ((a%m)*(b%m))%m; }
 vector<int> inputArray(int n){vector<int> arr(n);int i=0; FOR(i,n) cin>>arr[i];return arr;}
 
-double fun(double n,int pow){
-	if(pow==0) return 1.0;
-	double part = fun(n,pow/2);
-	part *=part;
-	if(pow&1==1){
-		part*=n;
+void fun(int n,int o,int c,int i,vector<char> &res,vector<string> &ans){
+	if(o==c){
+		if(o==n){
+			// for(auto x:res){
+				// cout<<x;
+			// }cout<<endl;
+			string s(res.begin(),res.end());
+			ans.push_back(s);
+		}
 	}
-	return part;
+	if(o<n){
+		res[i]='(';
+		fun(n,o+1,c,i+1,res,ans);
+	}
+	if(c<o){
+		res[i]=')';
+		fun(n,o,c+1,i+1,res,ans);
+	}
+	return;
 }
 
-double pow_n(double x,int n){
-	double ans = fun(x,abs(n));
-	if(n>=0) return ans;
-	return 1/ans;	
+vector<string> generateParenthesis(int n) {
+	vector<char> res(2*n);
+	vector<string> ans;
+	fun(n,0,0,0,res,ans);
+	return ans;
 }
-
 
 int main(){
-
-	double n;
-	int pow;
-
-	cin>>n>>pow;
-
-	cout<<fun(n,pow)<<endl;
-
+	int n;
+	cin>>n;
+	auto ans = generateParenthesis(n);
+	for(auto x:ans){
+		cout<<x<<" ";
+	}cout<<endl;
 	return 0;
 }

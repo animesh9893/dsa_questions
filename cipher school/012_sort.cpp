@@ -1,4 +1,3 @@
-// https://leetcode.com/problems/powx-n/
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -26,31 +25,40 @@ template <class T>
 T modmul(T a,T b,ll m){ return ((a%m)*(b%m))%m; }
 vector<int> inputArray(int n){vector<int> arr(n);int i=0; FOR(i,n) cin>>arr[i];return arr;}
 
-double fun(double n,int pow){
-	if(pow==0) return 1.0;
-	double part = fun(n,pow/2);
-	part *=part;
-	if(pow&1==1){
-		part*=n;
+// Dutch national flag sort 
+// it is an algo to sort 3 types of items array 
+
+// void swap(vector<int> &nums,int i,int j){
+// 	int temp = nums[i];
+// 	nums[i] = nums[j];
+// 	nums[j] = temp;
+// }
+
+void sortColors(vector<int> &nums){
+	int low =0,mid=0,hig=nums.size()-1;
+
+	while(mid<hig){
+		if(nums[mid]==0){
+			swap(nums[mid],nums[low]);
+			mid++;low++;
+		}else if(nums[mid]==1){mid++;}
+		else{
+			swap(nums[mid],nums[hig]);
+			hig--;
+		}
 	}
-	return part;
 }
-
-double pow_n(double x,int n){
-	double ans = fun(x,abs(n));
-	if(n>=0) return ans;
-	return 1/ans;	
-}
-
 
 int main(){
-
-	double n;
-	int pow;
-
-	cin>>n>>pow;
-
-	cout<<fun(n,pow)<<endl;
-
+	int n;cin>>n;
+	auto arr = inputArray(n);
+	sortColors(arr);
+	for(auto x:arr){
+		cout<<x<<" ";
+	}
+	cout<<endl;
 	return 0;
 }
+
+
+

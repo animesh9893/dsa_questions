@@ -1,4 +1,3 @@
-// https://leetcode.com/problems/powx-n/
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -26,31 +25,47 @@ template <class T>
 T modmul(T a,T b,ll m){ return ((a%m)*(b%m))%m; }
 vector<int> inputArray(int n){vector<int> arr(n);int i=0; FOR(i,n) cin>>arr[i];return arr;}
 
-double fun(double n,int pow){
-	if(pow==0) return 1.0;
-	double part = fun(n,pow/2);
-	part *=part;
-	if(pow&1==1){
-		part*=n;
-	}
-	return part;
+int x = 100;
+
+void fun1(){
+	cout<<x<<endl;
 }
 
-double pow_n(double x,int n){
-	double ans = fun(x,abs(n));
-	if(n>=0) return ans;
-	return 1/ans;	
+// int getValue(int x=0,int y=0,int z){
+	// return x+y+z;
+// }
+
+void fun2(){
+	cout<<x<<endl;
 }
-
-
 int main(){
+	// fun2();
+	// fun1();
+	// cout<<getValue(10);
+	// int a=10;
+	// while(a>5){
+	// 	int a=1;
+	// 	cout<<a<<endl;
+	// 	a--;
+	// }
+	int a=5;
+	int const *q=&a;a++;
+	cout<<q<<endl;
+	// q++;
+	cout<<q<<endl;
 
-	double n;
-	int pow;
-
-	cin>>n>>pow;
-
-	cout<<fun(n,pow)<<endl;
-
+	(*q)++;
+	cout<<a<<endl;
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+// https://docs.google.com/document/d/1xWOadbW5zWdD8D3qNP9fc2dmBJfhEIWbCw0ngFCqJtU/edit?usp=sharing

@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/powx-n/
+// https://leetcode.com/problems/move-zeroes/
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -26,31 +26,23 @@ template <class T>
 T modmul(T a,T b,ll m){ return ((a%m)*(b%m))%m; }
 vector<int> inputArray(int n){vector<int> arr(n);int i=0; FOR(i,n) cin>>arr[i];return arr;}
 
-double fun(double n,int pow){
-	if(pow==0) return 1.0;
-	double part = fun(n,pow/2);
-	part *=part;
-	if(pow&1==1){
-		part*=n;
+void moveZero(vector<int> &nums){
+	int n = nums.size();
+	for(int i=0;i<n;i++){
+		if(nums[i]==0){
+			for(int j=i+1;j<n;j++){
+				if(nums[j]!=0){
+					swap(nums[i],nums[j]);
+					j=n+100;
+				}
+			}
+		}
 	}
-	return part;
-}
-
-double pow_n(double x,int n){
-	double ans = fun(x,abs(n));
-	if(n>=0) return ans;
-	return 1/ans;	
 }
 
 
 int main(){
 
-	double n;
-	int pow;
-
-	cin>>n>>pow;
-
-	cout<<fun(n,pow)<<endl;
-
+	cout<<endl;
 	return 0;
 }

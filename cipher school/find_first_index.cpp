@@ -1,4 +1,3 @@
-// https://leetcode.com/problems/powx-n/
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -26,31 +25,41 @@ template <class T>
 T modmul(T a,T b,ll m){ return ((a%m)*(b%m))%m; }
 vector<int> inputArray(int n){vector<int> arr(n);int i=0; FOR(i,n) cin>>arr[i];return arr;}
 
-double fun(double n,int pow){
-	if(pow==0) return 1.0;
-	double part = fun(n,pow/2);
-	part *=part;
-	if(pow&1==1){
-		part*=n;
-	}
-	return part;
+int linearSearch1(vector<int> &arr,const int target,int index){
+	if(index==arr.size()) return -1;
+	if(arr[index]==target) return index;
+	return linearSearch1(arr,target,index+1);
 }
 
-double pow_n(double x,int n){
-	double ans = fun(x,abs(n));
-	if(n>=0) return ans;
-	return 1/ans;	
+int linearSearch(int arr[],int n,const int target){
+	if(n==0) return -1;
+	if(arr[0]==target) return 0;
+	int index = linearSearch(arr+1,n-1,target);
+	if(index==-1) return index;
+	return 1+index;
 }
-
 
 int main(){
+	int n;cin>>n;
+	// auto arr = inputArray(n);
+	// cout<<linearSearch(arr,10)<<endl;
 
-	double n;
-	int pow;
-
-	cin>>n>>pow;
-
-	cout<<fun(n,pow)<<endl;
-
+	int arr[n];
+	for (int i = 0; i < n; ++i)
+	{
+		cin>>arr[i];
+	}
+	int tar;cin>>tar;
+	cout<<"target : "<<tar<<" found at "<<linearSearch(arr,n,tar)<<endl;	
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+

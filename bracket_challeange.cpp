@@ -1,4 +1,5 @@
-// https://leetcode.com/problems/powx-n/
+// https://www.hackerrank.com/contests/gl-bajaj-self-evaluation-evening-batch/challenges/bracket-challenge-1/problem
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -26,31 +27,15 @@ template <class T>
 T modmul(T a,T b,ll m){ return ((a%m)*(b%m))%m; }
 vector<int> inputArray(int n){vector<int> arr(n);int i=0; FOR(i,n) cin>>arr[i];return arr;}
 
-double fun(double n,int pow){
-	if(pow==0) return 1.0;
-	double part = fun(n,pow/2);
-	part *=part;
-	if(pow&1==1){
-		part*=n;
+void fun(int &n,int &m,int on,int om,int cn,int cm,vector<char> &res,int index){
+	if(on+om==cn+cm and ){
+
 	}
-	return part;
 }
-
-double pow_n(double x,int n){
-	double ans = fun(x,abs(n));
-	if(n>=0) return ans;
-	return 1/ans;	
-}
-
 
 int main(){
-
-	double n;
-	int pow;
-
-	cin>>n>>pow;
-
-	cout<<fun(n,pow)<<endl;
-
+	int n,m;cin>>n>>m;
+	vector<char> res((n+m)*2);
+	fun(n,m,0,0,0,0,res,0);
 	return 0;
 }
