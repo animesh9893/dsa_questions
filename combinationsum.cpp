@@ -28,9 +28,9 @@ vector<int> inputArray(int n){vector<int> arr(n);int i=0; FOR(i,n) cin>>arr[i];r
 
 void func(const int target,vector<int>&arr,int index,int sum_so_far,vector<int> &ans,vector<vector<int>> &result){
 	if(sum_so_far==target){
-		for(auto x:ans){
-			cout<<x<<" ";
-		}cout<<endl;
+		// for(auto x:ans){
+		// 	cout<<x<<" ";
+		// }cout<<endl;
 
 		result.push_back(ans);
 		return ;
