@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/permutations/
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -25,11 +26,35 @@ template <class T>
 T modmul(T a,T b,ll m){ return ((a%m)*(b%m))%m; }
 vector<int> inputArray(int n){vector<int> arr(n);int i=0; FOR(i,n) cin>>arr[i];return arr;}
 
+void func(vector<int> &nums,int index,vector<vector<int>> &ans){
+	if(index==nums.size()){
+		ans.push_back(nums);
+		return;
+	}
+	for(int i=index;i<nums.size();i++){
+		swap(nums[index],nums[i]);
+		func(nums,index+1,ans);
+		swap(nums[index],nums[i]);
+	}
+	return ;
+}
 
+vector<vector<int>> permute(vector<int>& nums) {
+   	vector<vector<int>> ans;
+   	func(nums,0,ans);
+   	return ans;
+}
 
 int main(){
-    string s1,s2;cin>>s1>>s2;
-    cout<<(s1^s2)<<endl;
-    cout<<endl;
-    return 0;
+	int n;cin>>n;
+	auto arr = inputArray(n);
+	auto ans = permute(arr);
+
+	for(auto x:ans){
+		for(auto i:x){
+			cout<<i<<" ";
+		}cout<<endl;
+	}
+	cout<<endl;
+	return 0;
 }
